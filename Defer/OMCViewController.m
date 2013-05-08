@@ -30,7 +30,7 @@
 -(BOOL)test1{
 	NSLog(@"enter test1");
 	NSInputStream *stream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle]pathForResource:@"Test" ofType:@"txt"]];
-	if(!stream)[NSException raise:NSGenericException format:@"stream open failed"];
+	if(!stream)return NO;
 	[stream open];
 	OMCDefer(
 			 NSLog(@"stream close");
@@ -61,7 +61,7 @@
 -(BOOL)test2{
 	NSLog(@"enter test2");
 	NSInputStream *stream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle]pathForResource:@"Test" ofType:@"txt"]];
-	if(!stream)[NSException raise:NSGenericException format:@"stream open failed"];
+	if(!stream)return NO;
 	[stream open];
 	OMCDefer(
 			 NSLog(@"stream close");
@@ -94,7 +94,7 @@
 -(BOOL)test3{
 	NSLog(@"enter test3");
 	NSInputStream *stream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle]pathForResource:@"Test" ofType:@"txt"]];
-	if(!stream)[NSException raise:NSGenericException format:@"stream open failed"];
+	if(!stream)return NO;
 	[stream open];
 	OMCDefer(
 			 NSLog(@"stream close");
@@ -123,13 +123,28 @@
 -(BOOL)test4{
 	NSLog(@"enter test4");
 	NSInputStream *stream = [NSInputStream inputStreamWithFileAtPath:[[NSBundle mainBundle]pathForResource:@"Test" ofType:@"txt"]];
-	if(!stream)[NSException raise:NSGenericException format:@"stream open failed"];
+	if(!stream)return NO;
 	[stream open];
 	OMCDefer(
 			 NSLog(@"stream close");
 			 [stream close];
 			 );
 	[NSException raise:NSGenericException format:@"non catch test"];
+	return YES;
+}
+
+//using in if body block
+//
+//output:
+//  enter test5
+//  leave if block
+//  exit
+-(BOOL)test5{
+	NSLog(@"enter test5");
+	if(YES){
+		OMCDefer(NSLog(@"leave if block"););
+	}
+	NSLog(@"exit");
 	return YES;
 }
 
@@ -140,6 +155,7 @@
 	@try{
 		[self test4];
 	}@catch(NSException *exception){}
+	[self test5];
 }
 
 
