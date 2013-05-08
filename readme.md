@@ -1,9 +1,9 @@
 # What
 
-ObjectiveCで、スコープを抜ける時に実行したい処理を先に記述できるマクロ。
+ARC環境のObjectiveCで、スコープを抜ける時に実行したい処理を先に記述できるマクロ。
 Go言語のdefer文やC++/BoostのScopeExitに似ています。
 
-In Objective-C, you can write code that you want to run at exiting scope on ahead by this macro.
+In Objective-C with ARC, you can write code that you want to run at exiting scope on ahead by this macro.
 It looks like defer statement in Go language Or Boost.ScopeExit in C++ language.
 
 # Before After
@@ -33,7 +33,7 @@ It looks like defer statement in Go language Or Boost.ScopeExit in C++ language.
 エラーケースなどでこれを書き忘れるとバグの原因になります。
 
 For example , in stream processing , you must write cleanup code such as calling "close".
-If you forget to write on error case and other , it causes bug.
+If you forget to write on error case and others , it causes bug.
 
 ## After
 
@@ -63,5 +63,25 @@ Using this macro , you can write code that you want to run at exiting scope on a
 Code run when execute any return statement.
 You can write "close" in shortly after "open", so correspondence relation of code will be easily comprehensible.
 
+# How to Use
 
+Add the following to a project. 
 
+- OMCDeferObject.h
+- OMCDeferObject.m
+
+## Caution
+
+例外のthrowと一緒に使う場合はコンパイラフラグの"-fobjc-arc-exceptions"をセットしておく必要があります。
+
+Using with throw statement for exception, set compiler flag "-fobjc-arc-exceptions".
+
+# Using sample
+
+see OMCViewController.m
+
+# How it works
+
+そのうち書く。
+
+I write later.
