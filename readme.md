@@ -82,6 +82,5 @@ see OMCViewController.m
 
 # How it works
 
-そのうち書く。
+[Qiitaで解説を書きました。](http://qiita.com/items/753393924120636516f0)
 
-I write later.
